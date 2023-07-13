@@ -1,0 +1,69 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="home-container">
+  <h2>Welcome to My Blog</h2>
+
+  <!-- Форма поиска -->
+  <form class="search-form" method="GET" action="{% url 'search' %}">
+    <input class="search-input" type="text" name="query" placeholder="Search...">
+    <button class="search-button" type="submit">Search</button>
+  </form>
+  <!-- Фильтры по категориям -->
+  <div class="category-filters">
+    <h3>Categories:</h3>
+    <ul>
+      <li><a href="{% url 'home' %}">All</a></li>
+      {% for category in categories %}
+      <li><a href="?category={{ category.slug }}">{{ category.name }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  <!-- Фильтры по тегам -->
+  <div class="tag-filters">
+    <h3>Tags:</h3>
+    <ul>
+      <li><a href="{% url 'home' %}">All</a></li>
+      {% for tag in tags %}
+      <li><a href="?tag={{ tag.slug }}">{{ tag.name }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+  <!-- Список постов -->
+  <ul class="post-list">
+    {% for post in page_obj %}
+    <li>
+      <h3><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h3>
+      <p class="post-content">{{ post.content }}</p>
+      <p class="post-meta">Published by {{ post.author }} on {{ post.published_date }}</p>
+      <p class="post-likes">Likes: {{ post.total_likes }}</p>
+    </li>
+    {% empty %}
+    <li>No posts yet.</li>
+    {% endfor %}
+  </ul>
+
+  <!-- Пагинация -->
+  {% if page_obj.has_other_pages %}
+  <div class="pagination">
+    {% if page_obj.has_previous %}
+    <a href="?page=1">&laquo; First</a>
+    <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+    {% if num == page_obj.number %}
+    <span class="current-page">{{ num }}</span>
+    {% else %}
+    <a href="?page={{ num }}">{{ num }}</a>
+    {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">Next</a>
+    <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

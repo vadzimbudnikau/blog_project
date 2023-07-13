@@ -1,0 +1,34 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="container">
+  <div class="profile">
+    <h2 class="profile__title">User Profile</h2>
+    <h3 class="profile__username">{{ user.username }}</h3>
+    <div class="profile__picture">
+      {% if user.userprofile.profile_picture %}
+      <img src="{{ user.userprofile.profile_picture.url }}" alt="Profile Picture">
+      {% else %}
+      <p>No profile picture</p>
+      {% endif %}
+    </div>
+    <div class="profile__description">
+      <h3>Description:</h3>
+      {% if user.userprofile.description %}
+      <p>{{ user.userprofile.description }}</p>
+      {% else %}
+      <p>No profile description</p>
+      {% endif %}
+    </div>
+    <div class="profile__contact-info">
+      <h3>Contact Information:</h3>
+      {% if user.userprofile.contact_info %}
+      <p>{{ user.userprofile.contact_info }}</p>
+      {% else %}
+      <p>No contact information</p>
+      {% endif %}
+    </div>
+    <a href="{% url 'profile_update' %}" class="profile__edit-link">Edit Profile</a>
+  </div>
+</div>
+{% endblock %}

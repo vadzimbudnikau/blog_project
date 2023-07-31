@@ -95,4 +95,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Contact
 
-For any questions or suggestions, please feel free to contact me at [Email](vadimbudnikov@gmail.com). You can also reach out to me on [Telegram](https://t.me/valeriule).
+For any questions or suggestions, please feel free to contact me at [vadimbudnikov@gmail.com]. You can also reach out to me on [Telegram](https://t.me/valeriule).
